@@ -1,0 +1,2526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cosmic Developer - Portfolio Universe</title>
+<meta name="description" content="A cosmic journey through code, creativity, and stellar projects" />
+<!-- Updated FontAwesome CDN for working icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Add DevIcons for tech icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/soehne@1.0.0/index.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    cursor: none;
+    min-height: 100vh;
+}
+
+.cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s, opacity 0.3s;
+    backdrop-filter: blur(2px);
+    background-color: transparent;
+}
+
+.cursor.hidden {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.cursor-trail {
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: opacity 0.3s ease;
+}
+
+.spline-background {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+spline-viewer {
+    width: 100%;
+    height: 100%;
+    cursor: none;
+}
+
+.navbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(25px);
+    border-radius: 30px;
+    padding: 1.2rem 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    white-space: nowrap;
+    min-width: 650px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+.navbar a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    margin: 0 1.5rem;
+    font-weight: 500;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.2rem;
+    position: relative;
+    padding: 1rem 1.5rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    transform-style: preserve-3d;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.navbar a:hover {
+    color: #ffffff;
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: translateY(-8px) translateZ(30px) rotateX(10deg) scale(1.05);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.6),
+        0 10px 20px rgba(0, 0, 0, 0.4),
+        inset 0 2px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+        0 0 20px rgba(255, 255, 255, 0.2);
+    z-index: 1001;
+}
+
+.navbar a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent);
+    transition: left 0.6s ease;
+    transform: skewX(25deg);
+}
+
+.navbar a:hover::before {
+    left: 100%;
+}
+
+.hero-container {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.intro-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.hero-intro {
+    font-family: 'Söhne', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    margin-bottom: 1rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+.intro-section h1 {
+    font-family: 'Söhne', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 8.5rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 1s ease-out 0.1s both;
+    text-align: center;
+}
+
+.intro-section .subtitle {
+    font-family: 'Söhne', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    max-width: 500px;
+    animation: fadeInUp 1s ease-out 0.3s both;
+    white-space: normal;
+}
+
+.cta-button {
+    background: #ffffff;
+    color: #000000;
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1.25rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 12px 24px rgba(255, 255, 255, 0.3);
+    cursor: none;
+    animation: fadeInUp 1s ease-out 0.5s both;
+    border: none;
+    width: fit-content;
+    display: inline-block;
+}
+
+.cta-button:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 18px 36px rgba(255, 255, 255, 0.5);
+}
+
+/* SPLIT SCREEN ABOUT SECTION - Updated with center orbital animation */
+.about-section {
+  position: relative;
+  z-index: 10;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  border-radius: 0;
+  background: none;
+  padding: 0;
+  backdrop-filter: none;
+  border: none;
+}
+
+.about-left {
+  flex: 1;
+  background: #ffffff;
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 60px;
+  position: relative;
+}
+
+.about-right {
+  flex: 1;
+  background: #000000;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 60px;
+  position: relative;
+  align-items: center;
+}
+
+/* CENTER ORBITAL ANIMATION */
+.center-orbit-profile {
+  position: absolute;
+  left: calc(50% - 220px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 440px;
+  height: 440px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 30;
+}
+
+.about-photo {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 6px solid rgba(255, 255, 255, 0.7);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 35;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.7);
+  animation: profileGlow 2s ease-in-out infinite alternate;
+}
+
+.orbits {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 25;
+}
+
+.orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.orbit1 {
+  --width: 280px;
+  --height: 280px;
+  animation: fadeInMoveOut 6s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.orbit2 {
+  --width: 360px;
+  --height: 360px;
+  animation: fadeInMoveOut 6s ease-in-out infinite;
+  animation-delay: 3s;
+}
+
+@keyframes fadeInMoveOut {
+  0% {
+    opacity: 0;
+    width: 180px;
+    height: 180px;
+    transform: translate(-50%, -50%) scale(0.4);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  }
+  20% {
+    opacity: 1;
+    width: var(--width);
+    height: var(--height);
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+  }
+  70% {
+    opacity: 0.8;
+    width: var(--width);
+    height: var(--height);
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+  }
+  100% {
+    opacity: 0;
+    width: calc(var(--width) + 120px);
+    height: calc(var(--height) + 120px);
+    transform: translate(-50%, -50%) scale(1.5);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+  }
+}
+
+@keyframes profileGlow {
+  0% {
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 90px rgba(255, 255, 255, 1), 0 0 150px rgba(255, 255, 255, 0.5);
+  }
+}
+
+.main-name {
+  font-family: 'Söhne', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 7rem;
+  font-weight: 900;
+  line-height: 0.9;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideInLeft 1s ease-out forwards;
+}
+
+.job-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #666666;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideInLeft 1s ease-out 0.2s forwards;
+}
+
+.contact-btn {
+  background: #000000;
+  color: #ffffff;
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  width: fit-content;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideInLeft 1s ease-out 0.4s forwards;
+}
+
+.contact-btn:hover {
+  background: #333333;
+  transform: translateY(-2px);
+}
+
+.last-name {
+  font-family: 'Söhne', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  opacity: 0;
+  transform: translateX(50px);
+  animation: slideInRight 1s ease-out 0.3s forwards;
+}
+
+.about-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 400px;
+  opacity: 0;
+  transform: translateX(50px);
+  animation: slideInRight 1s ease-out 0.5s forwards;
+}
+
+@keyframes slideInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== GLASSY 3D PROJECT NEBULA SECTION ========== */
+.project-nebula-section {
+  position: relative;
+  padding: 80px 40px;
+  background-color: #000000;
+  color: #ffffff;
+  z-index: 10;
+  overflow: hidden;
+  min-height: 100vh;
+  perspective: 1200px;
+}
+
+/* Shiny Animated Particle Background */
+.project-nebula-section::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: 
+    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(3px 3px at 40px 70px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.9), transparent),
+    radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.7), transparent),
+    radial-gradient(3px 3px at 160px 30px, rgba(255,255,255,0.5), transparent),
+    radial-gradient(2px 2px at 200px 60px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 250px 90px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(3px 3px at 300px 20px, rgba(255,255,255,0.9), transparent);
+  background-repeat: repeat;
+  background-size: 320px 120px;
+  animation: sparkleMove 8s linear infinite, sparkleGlow 3s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+@keyframes sparkleMove {
+  0% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(-10px) translateY(-15px); }
+  50% { transform: translateX(10px) translateY(-10px); }
+  75% { transform: translateX(-5px) translateY(15px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+@keyframes sparkleGlow {
+  0% { opacity: 0.4; }
+  100% { opacity: 0.9; }
+}
+
+/* Clean Section Title - FIXED TO SINGLE LINE */
+.section-title {
+  font-family: 'Söhne', 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  margin-bottom: 60px;
+  text-align: center;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #ffffff;
+  padding-bottom: 10px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 15;
+  white-space: nowrap;
+}
+
+/* Spaced Grid Container */
+.projects-grid {
+  position: relative;
+  width: 100%;
+  max-width: 1350px;
+  height: 900px;
+  margin: 0 auto;
+  z-index: 15;
+  transform-style: preserve-3d;
+}
+
+/* Glassy 3D Circular Project Cards */
+.project-card {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  cursor: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: #ffffff;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  transform-style: preserve-3d;
+}
+
+.project-card:hover {
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4);
+  transform: scale(1.1) rotateX(12deg) rotateY(18deg) translateZ(30px);
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Properly Spaced Positions - No Overlapping */
+.project1 {
+  width: 400px;
+  height: 400px;
+  top: 50px;
+  left: 50px;
+  animation: float3D1 8s ease-in-out infinite;
+}
+
+.project2 {
+  width: 250px;
+  height: 250px;
+  top: 50px;
+  right: 50px;
+  animation: float3D2 9s ease-in-out infinite;
+}
+
+.project3 {
+  width: 300px;
+  height: 300px;
+  bottom: 100px;
+  left: 120px;
+  animation: float3D3 10s ease-in-out infinite;
+}
+
+.project4 {
+  width: 450px;
+  height: 450px;
+  bottom: 100px;
+  right: 80px;
+  animation: float3D4 7s ease-in-out infinite;
+}
+
+.project5 {
+  width: 350px;
+  height: 350px;
+  bottom: 350px;
+  right: 520px;
+  animation: float3D4 7s ease-in-out infinite;
+}
+
+/* Glassy Image */
+.project-image {
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+  border-radius: 175px 175px 0 0;
+  transition: all 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.project-card:hover .project-image {
+  filter: grayscale(80%) contrast(1.4) brightness(1.1);
+  transform: translateZ(15px) scale(1.03);
+}
+
+/* Glassy Content Area */
+.project-content {
+  width: 100%;
+  height: 50%;
+  background: rgb(0, 0, 0);
+  backdrop-filter: blur(15px);
+  padding: 25px 30px;
+  border-radius: 0 0 175px 175px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+  transform-style: preserve-3d;
+}
+
+.project-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #ffffff;
+  font-family: 'Söhne', 'Inter', sans-serif;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  transform: translateZ(10px);
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-title {
+  transform: translateZ(20px);
+}
+
+.project-card:hover .project-description {
+  transform: translateZ(15px);
+}
+
+/* Enhanced White Buttons */
+.project-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  transform: translateZ(15px);
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-buttons {
+  transform: translateZ(25px);
+}
+
+.btn {
+  background: #ffffff;
+  border-radius: 25px;
+  color: #000000;
+  font-weight: 700;
+  padding: 12px 22px;
+  text-decoration: none;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.5);
+  transition: all 0.4s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer !important;
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transform-style: preserve-3d;
+}
+
+.btn:hover {
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.8);
+  transform: translateY(-4px) scale(1.05) rotateX(5deg);
+  cursor: pointer !important;
+}
+
+.btn i {
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands';
+  font-weight: 900;
+  font-style: normal;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.btn:hover i {
+  color: #000000;
+  transform: scale(1.3) rotate(15deg);
+}
+
+/* PROJECT POPUP STYLES - ENHANCED AND FIXED */
+.project-popup {
+  position: fixed;
+  /* background: rgba(0, 0, 0, 0.95); */
+  background: black;
+  border: 2px solid white;
+  border-radius: 15px;
+  padding: 25px;
+  max-width: 350px;
+  min-width: 300px;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px) scale(0.9);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  backdrop-filter: blur(100px);
+  pointer-events: none;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.9),
+    0 0 30px rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.project-popup.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.project-popup h4 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+  font-family: 'Söhne', 'Inter', sans-serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.project-popup p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.project-popup .tech-stack,
+.project-popup .features {
+  margin-bottom: 15px;
+}
+
+.project-popup h5 {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.tech-tag {
+  /* background: rgba(255, 255, 255, 0.15); */
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid white;
+  backdrop-filter: blur(10px);
+}
+
+.project-popup .features ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.project-popup .features li {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.project-popup .features li::before {
+  content: "◆";
+  color: #ffffff;
+  position: absolute;
+  left: 0;
+  font-size: 1rem;
+  top: 0;
+}
+
+/* ========== ELEMENT MASTERY (SKILLS) SECTION ========== */
+.element-mastery-section {
+  position: relative;
+  padding: 100px 0;
+  background: #ffffff;
+  color: #000000;
+  z-index: 10;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.element-mastery-section .section-title {
+  color: #000000;
+  border-bottom: 2px solid #000000;
+  margin-bottom: 80px;
+}
+
+/* Infinite Scrolling Container */
+.skills-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  justify-content: center;
+}
+
+.skills-row {
+  display: flex;
+  width: 200%;
+  animation: infiniteScroll 30s linear infinite;
+  gap: 40px;
+}
+
+.skills-row:nth-child(2) {
+  animation: infiniteScrollReverse 25s linear infinite;
+}
+
+.skills-row:nth-child(3) {
+  animation: infiniteScroll 35s linear infinite;
+}
+
+/* Horizontal Rocket-shaped Skill Divs */
+.skill-rocket {
+  display: flex;
+  align-items: center;
+  background: #000000;
+  color: #ffffff;
+  padding: 15px 30px 15px 15px;
+  min-width: 200px;
+  height: 80px;
+  position: relative;
+  clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 50%, calc(100% - 30px) 100%, 0 100%);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  border: 2px solid #000000;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.skill-rocket:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.skill-rocket .skill-icon {
+  font-size: 2rem;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.skill-rocket .skill-name {
+  font-family: 'Söhne', 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Animation for infinite scrolling */
+@keyframes infiniteScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes infiniteScrollReverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Alternative rocket styles for variety */
+.skill-rocket.alt {
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+}
+
+.skill-rocket.alt:hover {
+  background: #f5f5f5;
+}
+
+/* 3D Floating Animations */
+@keyframes float3D1 {
+  0%, 100% { 
+    transform: translateY(0) translateX(0) rotateX(0deg) rotateY(0deg); 
+  }
+  33% { 
+    transform: translateY(-12px) translateX(8px) rotateX(3deg) rotateY(4deg); 
+  }
+  66% { 
+    transform: translateY(8px) translateX(-6px) rotateX(-2deg) rotateY(-3deg); 
+  }
+}
+
+@keyframes float3D2 {
+  0%, 100% { 
+    transform: translateY(0) translateX(0) rotateX(0deg) rotateY(0deg); 
+  }
+  25% { 
+    transform: translateY(10px) translateX(-8px) rotateX(-3deg) rotateY(-4deg); 
+  }
+  75% { 
+    transform: translateY(-6px) translateX(12px) rotateX(2deg) rotateY(5deg); 
+  }
+}
+
+@keyframes float3D3 {
+  0%, 100% { 
+    transform: translateY(0) translateX(0) rotateX(0deg) rotateY(0deg); 
+  }
+  40% { 
+    transform: translateY(-15px) translateX(10px) rotateX(4deg) rotateY(3deg); 
+  }
+  80% { 
+    transform: translateY(12px) translateX(-4px) rotateX(-3deg) rotateY(-4deg); 
+  }
+}
+
+@keyframes float3D4 {
+  0%, 100% { 
+    transform: translateY(0) translateX(0) rotateX(0deg) rotateY(0deg); 
+  }
+  30% { 
+    transform: translateY(14px) translateX(-10px) rotateX(-2deg) rotateY(-5deg); 
+  }
+  70% { 
+    transform: translateY(-10px) translateX(6px) rotateX(3deg) rotateY(2deg); 
+  }
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1200px) {
+  .center-orbit-profile {
+    width: 360px;
+    height: 360px;
+    left: calc(50% - 180px);
+  }
+  .about-photo {
+    width: 180px;
+    height: 180px;
+  }
+  .orbit1 { --width: 220px; --height: 220px; }
+  .orbit2 { --width: 280px; --height: 280px; }
+  
+  .projects-grid {
+    height: 800px;
+    max-width: 1200px;
+  }
+  
+  .project-card {
+    width: 320px;
+    height: 320px;
+  }
+  
+  .project-image {
+    height: 160px;
+    border-radius: 160px 160px 0 0;
+  }
+  
+  .project-content {
+    height: 160px;
+    border-radius: 0 0 160px 160px;
+    padding: 22px 25px;
+  }
+  
+  .project-title {
+    font-size: 1.5rem;
+  }
+  
+  .project-description {
+    font-size: 0.95rem;
+  }
+  
+  .btn {
+    font-size: 0.95rem;
+    padding: 10px 18px;
+  }
+}
+
+@media (max-width: 900px) {
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    white-space: normal;
+  }
+  
+  .projects-grid {
+    height: auto;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    justify-items: center;
+    perspective: none;
+  }
+  
+  .project1, .project2, .project3, .project4, .project5 {
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+  }
+  
+  .project-card {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .project-image {
+    height: 150px;
+    border-radius: 150px 150px 0 0;
+  }
+  
+  .project-content {
+    height: 150px;
+    border-radius: 0 0 150px 150px;
+    padding: 20px 22px;
+  }
+  
+  .project-card:hover {
+    transform: scale(1.08) rotateX(8deg) rotateY(12deg);
+  }
+  
+  .skill-rocket {
+    min-width: 180px;
+    height: 70px;
+    font-size: 1rem;
+  }
+  
+  .skill-rocket .skill-icon {
+    font-size: 1.6rem;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    top: 15px;
+    padding: 1rem 1.5rem;
+    font-size: 0.85rem;
+    min-width: auto;
+    width: auto;
+    height: 50px;
+  }
+  .navbar a {
+    margin: 0 0.5rem;
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+    height: 35px;
+  }
+  .hero-intro, .intro-section h1 {
+    font-size: 3rem;
+  }
+  .about-section {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+  .about-left, .about-right {
+    padding: 60px 30px;
+    text-align: center;
+  }
+  .center-orbit-profile {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    margin: 30px auto;
+    width: 300px;
+    height: 300px;
+  }
+  .about-photo {
+    width: 150px;
+    height: 150px;
+  }
+  .orbit1 { --width: 180px; --height: 180px; }
+  .orbit2 { --width: 230px; --height: 230px; }
+  .main-name {
+    font-size: 4rem;
+    text-align: center;
+  }
+  .last-name {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  .about-description {
+    max-width: none;
+    text-align: center;
+  }
+  
+  .project-nebula-section {
+    padding: 60px 20px;
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .project-popup {
+    max-width: 280px;
+    min-width: 250px;
+    padding: 20px;
+  }
+  
+  .element-mastery-section {
+    padding: 80px 20px;
+  }
+  
+  .skills-container {
+    height: 400px;
+    gap: 40px;
+  }
+  
+  .skill-rocket {
+    min-width: 150px;
+    height: 60px;
+    font-size: 0.9rem;
+    padding: 10px 25px 10px 10px;
+  }
+  
+  .skill-rocket .skill-icon {
+    font-size: 1.4rem;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-intro, .intro-section h1 {
+    font-size: 2.5rem;
+  }
+  .main-name {
+    font-size: 3rem;
+  }
+  .last-name {
+    font-size: 2rem;
+  }
+  .center-orbit-profile {
+    width: 220px;
+    height: 220px;
+  }
+  .about-photo {
+    width: 120px;
+    height: 120px;
+  }
+  .orbit1 { --width: 140px; --height: 140px; }
+  .orbit2 { --width: 180px; --height: 180px; }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .project-card {
+    width: 270px;
+    height: 270px;
+  }
+  
+  .project-image {
+    height: 135px;
+    border-radius: 135px 135px 0 0;
+  }
+  
+  .project-content {
+    height: 135px;
+    border-radius: 0 0 135px 135px;
+    padding: 18px 20px;
+  }
+  
+  .project-title {
+    font-size: 1.2rem;
+  }
+  
+  .project-description {
+    font-size: 0.85rem;
+  }
+  
+  .btn {
+    font-size: 0.85rem;
+    padding: 8px 15px;
+  }
+  
+  .btn i {
+    font-size: 1rem;
+  }
+  
+  .project-card:hover {
+    transform: scale(1.05) rotateX(5deg) rotateY(8deg);
+  }
+  
+  .skills-container {
+    height: 300px;
+    gap: 30px;
+  }
+  
+  .skill-rocket {
+    min-width: 130px;
+    height: 50px;
+    font-size: 0.8rem;
+    padding: 8px 20px 8px 8px;
+  }
+  
+  .skill-rocket .skill-icon {
+    font-size: 1.2rem;
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+  }
+  
+  .skill-rocket .skill-name {
+    font-size: 0.9rem;
+  }
+}
+
+        /* ========== GRAVITATIONAL PULL (CONTACT) SECTION ========== */
+        .gravitational-pull-section {
+            position: relative;
+            padding: 100px 40px;
+            background: #000000;
+            color: #ffffff;
+            z-index: 10;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Animated star field background */
+        .gravitational-pull-section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,1), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(2px 2px at 250px 90px, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 300px 20px, rgba(255,255,255,1), transparent);
+            background-repeat: repeat;
+            background-size: 400px 150px;
+            animation: starField 12s linear infinite, starTwinkle 3s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.8;
+        }
+
+        @keyframes starField {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-15px) translateY(-10px); }
+            50% { transform: translateX(10px) translateY(-15px); }
+            75% { transform: translateX(-10px) translateY(10px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+
+        @keyframes starTwinkle {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .gravitational-pull-section .section-title {
+            color: #ffffff;
+            border-bottom: 2px solid #ffffff;
+            margin-bottom: 80px;
+            font-size: 3rem;
+            white-space: nowrap;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Contact container */
+        .contact-container {
+            position: relative;
+            z-index: 15;
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        /* Contact info section */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .contact-intro {
+            font-family: 'Inter', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        .contact-description {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: #ffffff;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        /* Contact info text */
+        .contact-info-text {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .contact-info-item {
+            font-size: 1.2rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .contact-info-item span {
+            color: #ffffff;
+            font-weight: 400;
+            margin-right: 10px;
+        }
+
+        /* Social Media Icons */
+        .contact-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            justify-content: flex-start;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: transparent;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            transition: left 0.6s ease;
+            border-radius: 50%;
+        }
+
+        .contact-link:hover::before {
+            left: 100%;
+        }
+
+        .contact-link:hover {
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .contact-link i {
+            font-size: 2.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Contact form section */
+        .contact-form-container {
+            background: transparent;
+            border: 1px solid #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input,
+        .form-textarea {
+            padding: 15px 20px;
+            background: transparent;
+            border: 1px solid #ffffff;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #ffffff;
+            background: transparent;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: #ffffff;
+            opacity: 0.7;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            background: #ffffff;
+            color: #000000;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .form-submit:hover {
+            background: #000000;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            transform: translateY(-3px);
+        }
+
+        .form-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Success/Error Messages */
+        .form-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .form-message.success {
+            background: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+        }
+
+        .form-message.error {
+            background: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+        }
+
+        /* Floating cosmic elements */
+        .cosmic-element {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: floatCosmic 8s ease-in-out infinite;
+        }
+
+        .cosmic-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .cosmic-element:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            animation-delay: -2s;
+        }
+
+        .cosmic-element:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: -4s;
+        }
+
+        .cosmic-element:nth-child(4) {
+            top: 40%;
+            right: 30%;
+            animation-delay: -6s;
+        }
+
+        @keyframes floatCosmic {
+            0%, 100% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.8;
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px) scale(1.2);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-10px) translateX(-15px) scale(0.8);
+                opacity: 0.6;
+            }
+            75% {
+                transform: translateY(15px) translateX(5px) scale(1.1);
+                opacity: 0.9;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .gravitational-pull-section {
+                padding: 80px 20px;
+            }
+            
+            .gravitational-pull-section .section-title {
+                font-size: 2.5rem;
+                margin-bottom: 60px;
+                white-space: normal;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                text-align: center;
+            }
+            
+            .contact-intro {
+                font-size: 2.8rem;
+            }
+            
+            .contact-description {
+                font-size: 1.2rem;
+            }
+            
+            .contact-form-container {
+                padding: 30px 20px;
+            }
+            
+            .contact-links {
+                justify-content: center;
+            }
+            
+            .contact-link {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .contact-link i {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gravitational-pull-section .section-title {
+                font-size: 2rem;
+            }
+            
+            .contact-intro {
+                font-size: 2.2rem;
+            }
+            
+            .contact-description {
+                font-size: 1.1rem;
+            }
+            
+            .contact-links {
+                gap: 20px;
+            }
+            
+            .contact-link {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .contact-link i {
+                font-size: 1.8rem;
+            }
+            
+            .form-input,
+            .form-textarea {
+                padding: 12px 15px;
+                font-size: 0.95rem;
+            }
+            
+            .form-submit {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+        } 
+
+
+</style>
+<!-- Replace your current script tag with this -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.48/build/spline-viewer.js"></script>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+
+<nav class="navbar">
+<a href="#home" class="nav-link">Home</a>
+<a href="#my-atomic-structure" class="nav-link">My Atomic Structure</a>
+<a href="#project-nebula" class="nav-link">Project Nebula</a>
+<a href="#element-mastery" class="nav-link">Element Mastery</a>
+<a href="#gravitational-pull" class="nav-link">Gravitational Pull</a>
+</nav>
+
+<div class="spline-background">
+<spline-viewer url="https://prod.spline.design/VVgHa1EUlWvd3ymU/scene.splinecode"></spline-viewer>
+</div>
+
+<div class="hero-container">
+<section class="intro-section">
+<p class="hero-intro">Hello, I'm</p>
+<h1>Madhav Dhavala</h1>
+<p class="subtitle">Full Stack Developer Building bridges between frontend creativity and backend logic</p>
+<a href="#my-atomic-structure" class="cta-button">Explore My Work</a>
+</section>
+</div>
+
+<section id="my-atomic-structure" class="about-section">
+  <div class="about-left">
+    <h2 class="main-name">Madhav</h2>
+    <p class="job-title">Full Stack Developer</p>
+    <a href="mailto:madhav@example.com" class="contact-btn">Contact Me</a>
+  </div>
+
+  <div class="center-orbit-profile">
+    <img src="my-image.jpg" alt="Madhav Dhavala" class="about-photo">
+    <div class="orbits">
+      <div class="orbit orbit1"></div>
+      <div class="orbit orbit2"></div>
+    </div>
+  </div>
+
+  <div class="about-right">
+    <h3 class="last-name">Dhavala</h3>
+    <p class="about-description">
+      Expert in JavaScript, React, Node.js, and cloud technologies. I love creating user-centric solutions that make a real impact.
+    </p>
+  </div>
+</section>
+
+<section id="project-nebula" class="project-nebula-section">
+  <h2 class="section-title">Project Nebula</h2>
+
+  <div class="projects-grid">
+    <!-- PROJECT 1: Cosmic Blog Platform -->
+    <div class="project-card project1" data-project="cosmic-blog">
+      <img src="https://marketplace.canva.com/EAGqBtXNfT0/2/0/1600w/canva-black-and-white-minimalist-digital-marketing-portfolio-presentation-EWwa2PzdVxQ.jpg" alt="Cosmic Blog Platform Screenshot" class="project-image" />
+      <div class="project-content">
+        <h3 class="project-title">Cosmic Blog Platform</h3>
+        <div class="project-buttons">
+          <a href="https://github.com/username/cosmic-blog" target="_blank" class="btn github-btn">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <a href="https://cosmic-blog.example.com" target="_blank" class="btn live-btn">
+            <i class="fas fa-rocket"></i> Live
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2: Galactic E-commerce -->
+    <div class="project-card project2" data-project="galactic-ecommerce">
+      <img src="https://marketplace.canva.com/EAGqBtXNfT0/2/0/1600w/canva-black-and-white-minimalist-digital-marketing-portfolio-presentation-EWwa2PzdVxQ.jpg" alt="Galactic E-commerce Screenshot" class="project-image" />
+      <div class="project-content">
+        <h3 class="project-title">Galactic E-commerce</h3>
+        <div class="project-buttons">
+          <a href="https://github.com/username/galactic-ecommerce" target="_blank" class="btn github-btn">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <a href="https://galactic-ecommerce.example.com" target="_blank" class="btn live-btn">
+            <i class="fas fa-rocket"></i> Live
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3: Stellar Portfolio -->
+    <div class="project-card project3" data-project="stellar-portfolio">
+      <img src="https://marketplace.canva.com/EAGqBtXNfT0/2/0/1600w/canva-black-and-white-minimalist-digital-marketing-portfolio-presentation-EWwa2PzdVxQ.jpg" alt="Stellar Portfolio Screenshot" class="project-image" />
+      <div class="project-content">
+        <h3 class="project-title">Stellar Portfolio</h3>
+        <div class="project-buttons">
+          <a href="https://github.com/username/stellar-portfolio" target="_blank" class="btn github-btn">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <a href="https://stellar-portfolio.example.com" target="_blank" class="btn live-btn">
+            <i class="fas fa-rocket"></i> Live
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 4: Nebula Task Manager -->
+    <div class="project-card project4" data-project="nebula-task">
+      <img src="https://marketplace.canva.com/EAGqBtXNfT0/2/0/1600w/canva-black-and-white-minimalist-digital-marketing-portfolio-presentation-EWwa2PzdVxQ.jpg" alt="Nebula Task Manager Screenshot" class="project-image" />
+      <div class="project-content">
+        <h3 class="project-title">Nebula Task Manager</h3>
+        <div class="project-buttons">
+          <a href="https://github.com/username/nebula-task" target="_blank" class="btn github-btn">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <a href="https://nebula-task.example.com" target="_blank" class="btn live-btn">
+            <i class="fas fa-rocket"></i> Live
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 5: AI Chatbot -->
+    <div class="project-card project5" data-project="ai-chatbot">
+      <img src="https://marketplace.canva.com/EAGqBtXNfT0/2/0/1600w/canva-black-and-white-minimalist-digital-marketing-portfolio-presentation-EWwa2PzdVxQ.jpg" alt="AI Chatbot Screenshot" class="project-image" />
+      <div class="project-content">
+        <h3 class="project-title">AI Chatbot</h3>
+        <div class="project-buttons">
+          <a href="https://github.com/username/ai-chatbot" target="_blank" class="btn github-btn">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <a href="https://ai-chatbot.example.com" target="_blank" class="btn live-btn">
+            <i class="fas fa-rocket"></i> Live
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT POPUP -->
+<div class="project-popup" id="projectPopup">
+  <h4 id="popupTitle"></h4>
+  <p id="popupDescription"></p>
+  <div class="tech-stack">
+    <h5>Tech Stack</h5>
+    <div class="tech-tags" id="popupTechTags"></div>
+  </div>
+  <div class="features">
+    <h5>Key Features</h5>
+    <ul id="popupFeatures"></ul>
+  </div>
+</div>
+
+<!-- ELEMENT MASTERY SECTION -->
+<section id="element-mastery" class="element-mastery-section">
+  <h2 class="section-title">Element Mastery</h2>
+  
+  <div class="skills-container">
+    <!-- First Row - Frontend Skills -->
+    <div class="skills-row">
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-html5-plain"></i></div>
+        <div class="skill-name">HTML5</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-css3-plain"></i></div>
+        <div class="skill-name">CSS3</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-javascript-plain"></i></div>
+        <div class="skill-name">JavaScript</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-typescript-plain"></i></div>
+        <div class="skill-name">TypeScript</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-react-original"></i></div>
+        <div class="skill-name">React</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-redux-original"></i></div>
+        <div class="skill-name">Redux</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-vuejs-plain"></i></div>
+        <div class="skill-name">Vue.js</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-angular-plain"></i></div>
+        <div class="skill-name">Angular</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-nextjs-original"></i></div>
+        <div class="skill-name">Next.js</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-sass-original"></i></div>
+        <div class="skill-name">Sass</div>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-html5-plain"></i></div>
+        <div class="skill-name">HTML5</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-css3-plain"></i></div>
+        <div class="skill-name">CSS3</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-javascript-plain"></i></div>
+        <div class="skill-name">JavaScript</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-typescript-plain"></i></div>
+        <div class="skill-name">TypeScript</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-react-original"></i></div>
+        <div class="skill-name">React</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-redux-original"></i></div>
+        <div class="skill-name">Redux</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-vuejs-plain"></i></div>
+        <div class="skill-name">Vue.js</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-angular-plain"></i></div>
+        <div class="skill-name">Angular</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-nextjs-original"></i></div>
+        <div class="skill-name">Next.js</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-sass-original"></i></div>
+        <div class="skill-name">Sass</div>
+      </div>
+    </div>
+
+    <!-- Second Row - Backend Skills -->
+    <div class="skills-row">
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-nodejs-plain"></i></div>
+        <div class="skill-name">Node.js</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-express-original"></i></div>
+        <div class="skill-name">Express</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-python-plain"></i></div>
+        <div class="skill-name">Python</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-django-plain"></i></div>
+        <div class="skill-name">Django</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-php-plain"></i></div>
+        <div class="skill-name">PHP</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-laravel-original"></i></div>
+        <div class="skill-name">Laravel</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-ruby-plain"></i></div>
+        <div class="skill-name">Ruby</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-rails-plain"></i></div>
+        <div class="skill-name">Rails</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-java-plain"></i></div>
+        <div class="skill-name">Java</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-spring-original"></i></div>
+        <div class="skill-name">Spring</div>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-nodejs-plain"></i></div>
+        <div class="skill-name">Node.js</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-express-original"></i></div>
+        <div class="skill-name">Express</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-python-plain"></i></div>
+        <div class="skill-name">Python</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-django-plain"></i></div>
+        <div class="skill-name">Django</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-php-plain"></i></div>
+        <div class="skill-name">PHP</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-laravel-original"></i></div>
+        <div class="skill-name">Laravel</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-ruby-plain"></i></div>
+        <div class="skill-name">Ruby</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-rails-plain"></i></div>
+        <div class="skill-name">Rails</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-java-plain"></i></div>
+        <div class="skill-name">Java</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-spring-original"></i></div>
+        <div class="skill-name">Spring</div>
+      </div>
+    </div>
+
+    <!-- Third Row - Database & Tools -->
+    <div class="skills-row">
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-mongodb-plain"></i></div>
+        <div class="skill-name">MongoDB</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-mysql-plain"></i></div>
+        <div class="skill-name">MySQL</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-postgresql-plain"></i></div>
+        <div class="skill-name">PostgreSQL</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-redis-plain"></i></div>
+        <div class="skill-name">Redis</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-git-plain"></i></div>
+        <div class="skill-name">Git</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-docker-plain"></i></div>
+        <div class="skill-name">Docker</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-kubernetes-plain"></i></div>
+        <div class="skill-name">Kubernetes</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-amazonwebservices-original"></i></div>
+        <div class="skill-name">AWS</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-graphql-plain"></i></div>
+        <div class="skill-name">GraphQL</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="fas fa-server"></i></div>
+        <div class="skill-name">REST API</div>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-mongodb-plain"></i></div>
+        <div class="skill-name">MongoDB</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-mysql-plain"></i></div>
+        <div class="skill-name">MySQL</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-postgresql-plain"></i></div>
+        <div class="skill-name">PostgreSQL</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-redis-plain"></i></div>
+        <div class="skill-name">Redis</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-git-plain"></i></div>
+        <div class="skill-name">Git</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-docker-plain"></i></div>
+        <div class="skill-name">Docker</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-kubernetes-plain"></i></div>
+        <div class="skill-name">Kubernetes</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="devicon-amazonwebservices-original"></i></div>
+        <div class="skill-name">AWS</div>
+      </div>
+      <div class="skill-rocket">
+        <div class="skill-icon"><i class="devicon-graphql-plain"></i></div>
+        <div class="skill-name">GraphQL</div>
+      </div>
+      <div class="skill-rocket alt">
+        <div class="skill-icon"><i class="fas fa-server"></i></div>
+        <div class="skill-name">REST API</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- GRAVITATIONAL PULL SECTION -->
+    <section id="gravitational-pull" class="gravitational-pull-section">
+        <!-- Floating cosmic elements -->
+        <div class="cosmic-element"></div>
+        <div class="cosmic-element"></div>
+        <div class="cosmic-element"></div>
+        <div class="cosmic-element"></div>
+        
+        <h2 class="section-title">Gravitational Pull</h2>
+        
+        <div class="contact-container">
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <h3 class="contact-intro">Let's Create Something Stellar Together</h3>
+                <p class="contact-description">
+                    Ready to launch your next project into orbit? Whether you need a cosmic website, 
+                    stellar mobile app, or want to collaborate on something extraordinary, 
+                    I'm here to help bring your vision to life.
+                </p>
+                
+                <!-- Contact Info Text -->
+                <div class="contact-info-text">
+                    <div class="contact-info-item">
+                        <span>Email:</span> madhavdhavala0@gmail.com
+                    </div>
+                    <div class="contact-info-item">
+                        <span>Phone:</span> +91 98765 43210
+                    </div>
+                </div>
+                
+                <!-- Social Media Icons -->
+                <div class="contact-links">
+                    <a href="https://linkedin.com/in/madhav-dhavala" target="_blank" class="contact-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    
+                    <a href="https://github.com/madhav-dhavala" target="_blank" class="contact-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    
+                    <a href="mailto:madhavdhavala0@gmail.com" class="contact-link">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    
+                    <a href="tel:+919876543210" class="contact-link">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="contact-form-container">
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Name</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            class="form-input" 
+                            placeholder="Your cosmic name"
+                            required
+                        />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-input" 
+                            placeholder="your.email@galaxy.com"
+                            required
+                        />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject" class="form-label">Subject</label>
+                        <input 
+                            type="text" 
+                            id="subject" 
+                            name="subject" 
+                            class="form-input" 
+                            placeholder="What's your mission?"
+                            required
+                        />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea 
+                            id="message" 
+                            name="message" 
+                            class="form-textarea" 
+                            placeholder="Tell me about your stellar project idea..."
+                            required
+                        ></textarea>
+                    </div>
+                    
+                    <button type="submit" class="form-submit" id="submit-btn">Launch Message</button>
+                    
+                    <!-- Success/Error Messages -->
+                    <div class="form-message" id="form-message"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+<script>
+          // Initialize EmailJS with your public key
+        (function() {
+            emailjs.init("Hwl0xGQ7Qz5u2ftlw"); // Replace with your EmailJS public key
+        })();
+
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const formMessage = document.getElementById('form-message');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Launching...';
+            formMessage.style.display = 'none';
+            
+            // Send email using EmailJS
+            emailjs.sendForm(
+                'service_28l8t94',    // Replace with your EmailJS service ID
+                'template_xqwv1ti',   // Replace with your EmailJS template ID
+                this
+            ).then(function(response) {
+                // Success
+                console.log('SUCCESS!', response.status, response.text);
+                
+                formMessage.textContent = 'Message launched successfully!  I\'ll get back to you soon.';
+                formMessage.className = 'form-message success';
+                formMessage.style.display = 'block';
+                
+                // Reset form
+                document.getElementById('contact-form').reset();
+                
+            }, function(error) {
+                // Error
+                console.log('FAILED...', error);
+                
+                formMessage.textContent = 'Houston, we have a problem! Please try again or email me directly.';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+            }).finally(function() {
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Launch Message';
+            });
+        });
+
+</script>
+<script>
+// Enhanced Project data for popups
+const projectData = {
+  'cosmic-blog': {
+    title: 'Cosmic Blog Platform',
+    description: 'A modern, responsive blog platform with real-time collaboration features and advanced content management system.',
+    techStack: ['React', 'Node.js', 'MongoDB', 'Socket.io', 'Express', 'JWT'],
+    features: [
+      'Real-time collaborative editing',
+      'Advanced rich text editor with markdown',
+      'SEO optimization tools',
+      'Comment system with moderation',
+      'Analytics dashboard',
+      'User authentication & roles'
+    ]
+  },
+  'galactic-ecommerce': {
+    title: 'Galactic E-commerce',
+    description: 'Full-featured e-commerce platform with secure payments, inventory management, and comprehensive analytics.',
+    techStack: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'Redis', 'AWS S3'],
+    features: [
+      'Secure payment processing',
+      'Advanced inventory management',
+      'Real-time order tracking',
+      'Admin analytics dashboard',
+      'Mobile-responsive design',
+      'Multi-currency support'
+    ]
+  },
+  'stellar-portfolio': {
+    title: 'Stellar Portfolio',
+    description: 'Interactive 3D portfolio website showcasing creative projects with immersive animations and smooth user experience.',
+    techStack: ['Three.js', 'React', 'GSAP', 'WebGL', 'CSS3', 'Webpack'],
+    features: [
+      '3D interactive elements',
+      'Smooth scroll animations',
+      'Performance optimized',
+      'Cross-browser compatibility',
+      'Responsive design',
+      'Dynamic particle systems'
+    ]
+  },
+  'nebula-task': {
+    title: 'Nebula Task Manager',
+    description: 'Advanced project management tool with team collaboration, time tracking, and automated workflow management.',
+    techStack: ['Vue.js', 'Express', 'MongoDB', 'WebSockets', 'JWT', 'Chart.js'],
+    features: [
+      'Team collaboration tools',
+      'Automated workflow triggers',
+      'Time tracking & reporting',
+      'Kanban board interface',
+      'Real-time notifications',
+      'Project analytics'
+    ]
+  },
+  'ai-chatbot': {
+    title: 'AI Chatbot',
+    description: 'Intelligent conversational AI with natural language processing and machine learning capabilities for multiple platforms.',
+    techStack: ['Python', 'TensorFlow', 'Flask', 'NLP', 'WebSockets', 'Docker'],
+    features: [
+      'Natural language understanding',
+      'Context-aware responses',
+      'Multi-language support',
+      'Learning from conversations',
+      'Integration with multiple platforms',
+      'Sentiment analysis'
+    ]
+  }
+};
+
+// Cursor functionality
+const cursor = document.getElementById('cursor');
+const trails = [];
+let mouse = { x: 0, y: 0 };
+let cursorPos = { x: 0, y: 0 };
+const cursorLerp = 0.8;
+const trailLerp = 0.3;
+
+// Create cursor trails
+for (let i = 0; i < 8; i++) {
+  const trail = document.createElement('div');
+  trail.className = 'cursor-trail';
+  document.body.appendChild(trail);
+  trails.push({element: trail, x: 0, y: 0, alpha: 1 - i * 0.12, targetX: 0, targetY: 0});
+}
+
+// Mouse movement tracking
+document.addEventListener('mousemove', (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+// Cursor animation loop
+function animateCursor() {
+  cursorPos.x += (mouse.x - cursorPos.x) * cursorLerp;
+  cursorPos.y += (mouse.y - cursorPos.y) * cursorLerp;
+  cursor.style.left = cursorPos.x - 10 + 'px';
+  cursor.style.top = cursorPos.y - 10 + 'px';
+  
+  let targetX = cursorPos.x;
+  let targetY = cursorPos.y;
+  
+  trails.forEach((trail, index) => {
+    const trailSpeed = trailLerp - index * 0.03;
+    trail.targetX += (targetX - trail.targetX) * trailSpeed;
+    trail.targetY += (targetY - trail.targetY) * trailSpeed;
+    trail.element.style.left = trail.targetX - 2 + 'px';
+    trail.element.style.top = trail.targetY - 2 + 'px';
+    trail.element.style.opacity = trail.alpha;
+    targetX = trail.targetX;
+    targetY = trail.targetY;
+  });
+  
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Navigation link cursor effects
+document.querySelectorAll('.nav-link').forEach(element => {
+  element.addEventListener('mouseenter', () => {
+    cursor.classList.add('hidden');
+    trails.forEach(trail => {
+      trail.element.style.opacity = '0';
+    });
+  });
+  
+  element.addEventListener('mouseleave', () => {
+    cursor.classList.remove('hidden');
+    trails.forEach((trail, index) => {
+      trail.element.style.opacity = trail.alpha;
+    });
+  });
+});
+
+// ENHANCED BUTTON CURSOR EFFECTS - Show normal cursor for GitHub and Live buttons
+document.querySelectorAll('.btn').forEach(element => {
+  element.addEventListener('mouseenter', () => {
+    // Hide custom cursor and show normal cursor for buttons
+    cursor.style.opacity = '0';
+    trails.forEach(trail => {
+      trail.element.style.opacity = '0';
+    });
+    document.body.style.cursor = 'pointer';
+  });
+  
+  element.addEventListener('mouseleave', () => {
+    // Restore custom cursor
+    cursor.style.opacity = '1';
+    trails.forEach((trail, index) => {
+      trail.element.style.opacity = trail.alpha;
+    });
+    document.body.style.cursor = 'none';
+  });
+});
+
+// General link and button cursor effects (excluding .btn elements)
+document.querySelectorAll('a:not(.nav-link):not(.btn), button:not(.btn)').forEach(element => {
+  element.addEventListener('mouseenter', () => {
+    cursor.style.transform = 'scale(2)';
+    cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+  });
+  
+  element.addEventListener('mouseleave', () => {
+    cursor.style.transform = 'scale(1)';
+    cursor.style.backgroundColor = 'transparent';
+  });
+});
+
+// PROJECT POPUP FUNCTIONALITY
+const popup = document.getElementById('projectPopup');
+const popupTitle = document.getElementById('popupTitle');
+const popupDescription = document.getElementById('popupDescription');
+const popupTechTags = document.getElementById('popupTechTags');
+const popupFeatures = document.getElementById('popupFeatures');
+
+// Add event listeners to ALL project cards
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('mouseenter', (e) => {
+    const projectKey = card.getAttribute('data-project');
+    const project = projectData[projectKey];
+    
+    if (project) {
+      // Populate popup content
+      popupTitle.textContent = project.title;
+      popupDescription.textContent = project.description;
+      
+      // Clear and populate tech stack
+      popupTechTags.innerHTML = '';
+      project.techStack.forEach(tech => {
+        const tag = document.createElement('span');
+        tag.className = 'tech-tag';
+        tag.textContent = tech;
+        popupTechTags.appendChild(tag);
+      });
+      
+      // Clear and populate features
+      popupFeatures.innerHTML = '';
+      project.features.forEach(feature => {
+        const li = document.createElement('li');
+        li.textContent = feature;
+        popupFeatures.appendChild(li);
+      });
+      
+      // Show popup
+      popup.classList.add('show');
+    }
+
+    // Enhanced cursor effect for project cards
+    cursor.style.transform = 'scale(1.5)';
+    cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
+  });
+
+  card.addEventListener('mouseleave', () => {
+    popup.classList.remove('show');
+    cursor.style.transform = 'scale(1)';
+    cursor.style.backgroundColor = 'transparent';
+  });
+
+  card.addEventListener('mousemove', (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+    
+    // Position popup near the cursor but within viewport
+    let popupX = x + 25;
+    let popupY = y + 25;
+    
+    // Prevent popup from going off-screen (right edge)
+    if (popupX + 350 > window.innerWidth) {
+      popupX = x - 375;
+    }
+    
+    // Prevent popup from going off-screen (bottom edge)
+    if (popupY + 300 > window.innerHeight) {
+      popupY = y - 325;
+    }
+    
+    // Ensure minimum distance from edges
+    popupX = Math.max(10, Math.min(popupX, window.innerWidth - 360));
+    popupY = Math.max(10, Math.min(popupY, window.innerHeight - 310));
+    
+    popup.style.left = popupX + 'px';
+    popup.style.top = popupY + 'px';
+  });
+});
+
+// Hide popup when mouse leaves the projects section
+document.querySelector('.project-nebula-section').addEventListener('mouseleave', () => {
+  popup.classList.remove('show');
+});
+
+// Additional safety: Hide popup on page scroll
+window.addEventListener('scroll', () => {
+  popup.classList.remove('show');
+});
+</script>
+</body>
+</html>
