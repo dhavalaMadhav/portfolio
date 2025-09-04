@@ -30,6 +30,66 @@ body {
     min-height: 100vh;
 }
 
+/* SCROLL ANIMATION UTILITIES */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-reveal-left.revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.scroll-reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-reveal-right.revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.scroll-reveal-scale {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-reveal-scale.revealed {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.scroll-reveal-rotate {
+    opacity: 0;
+    transform: rotateY(45deg);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-reveal-rotate.revealed {
+    opacity: 1;
+    transform: rotateY(0);
+}
+
+.scroll-stagger {
+    transition-delay: var(--delay, 0s);
+}
+
 .cursor {
     width: 20px;
     height: 20px;
@@ -94,6 +154,17 @@ spline-viewer {
     align-items: center;
     justify-content: center;
     perspective: 1000px;
+    /* Scroll animation for navbar */
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+    animation: navbarSlideDown 1s ease-out 0.5s forwards;
+}
+
+@keyframes navbarSlideDown {
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
 .navbar a {
@@ -231,7 +302,7 @@ spline-viewer {
     box-shadow: 0 18px 36px rgba(255, 255, 255, 0.5);
 }
 
-/* SPLIT SCREEN ABOUT SECTION - Updated with center orbital animation */
+/* SPLIT SCREEN ABOUT SECTION - Enhanced with scroll animations */
 .about-section {
   position: relative;
   z-index: 10;
@@ -265,14 +336,14 @@ spline-viewer {
   justify-content: center;
   padding: 80px 60px;
   position: relative;
-  align-items: center;
+  align-items: start;
 }
 
 /* CENTER ORBITAL ANIMATION */
 .center-orbit-profile {
   position: absolute;
   left: calc(50% - 220px);
-  top: 50%;
+  top: 20%;
   transform: translateY(-50%);
   width: 440px;
   height: 440px;
@@ -296,6 +367,41 @@ spline-viewer {
   box-shadow: 0 0 50px rgba(255, 255, 255, 0.7);
   animation: profileGlow 2s ease-in-out infinite alternate;
 }
+
+.background h4{
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: black; /* dark text for left side */  
+}
+.personality h4 {
+  font-family: 'Söhne', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  margin-left:200px;
+  width:100%;
+  color: white; /* dark text for left side */
+}
+
+.about-left .background p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #333333;
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+.personality p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8); /* whiteish text for right side */
+  margin-left: 200px;
+  width:100%;
+
+}
+
 
 .orbits {
   position: absolute;
@@ -379,9 +485,6 @@ spline-viewer {
   font-weight: 900;
   line-height: 0.9;
   margin-bottom: 20px;
-  opacity: 0;
-  transform: translateX(-50px);
-  animation: slideInLeft 1s ease-out forwards;
 }
 
 .job-title {
@@ -390,9 +493,6 @@ spline-viewer {
   font-weight: 400;
   color: #666666;
   margin-bottom: 40px;
-  opacity: 0;
-  transform: translateX(-50px);
-  animation: slideInLeft 1s ease-out 0.2s forwards;
 }
 
 .contact-btn {
@@ -405,9 +505,6 @@ spline-viewer {
   font-size: 1rem;
   width: fit-content;
   transition: all 0.3s ease;
-  opacity: 0;
-  transform: translateX(-50px);
-  animation: slideInLeft 1s ease-out 0.4s forwards;
 }
 
 .contact-btn:hover {
@@ -420,9 +517,8 @@ spline-viewer {
   font-size: 4rem;
   font-weight: 700;
   margin-bottom: 30px;
-  opacity: 0;
-  transform: translateX(50px);
-  animation: slideInRight 1s ease-out 0.3s forwards;
+  margin-left: 200px;
+
 }
 
 .about-description {
@@ -431,23 +527,7 @@ spline-viewer {
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
   max-width: 400px;
-  opacity: 0;
-  transform: translateX(50px);
-  animation: slideInRight 1s ease-out 0.5s forwards;
-}
-
-@keyframes slideInLeft {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  margin-left: 200px;
 }
 
 @keyframes fadeInUp {
@@ -511,7 +591,7 @@ spline-viewer {
   100% { opacity: 0.9; }
 }
 
-/* Clean Section Title - FIXED TO SINGLE LINE */
+/* Clean Section Title */
 .section-title {
   font-family: 'Söhne', 'Inter', sans-serif;
   font-weight: 700;
@@ -571,7 +651,7 @@ spline-viewer {
   border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* Properly Spaced Positions - No Overlapping */
+/* Properly Spaced Positions */
 .project1 {
   width: 400px;
   height: 400px;
@@ -643,11 +723,11 @@ spline-viewer {
 }
 
 .project-title {
-  font-size: 1.7rem;
+  font-size: 1.7rem; 
   font-weight: 700;
   margin-bottom: 8px;
-  color: #ffffff;
-  font-family: 'Söhne', 'Inter', sans-serif;
+  color: #ffffffbf;
+   font-family: 'Söhne', 'Inter', sans-serif;
   letter-spacing: -0.01em;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   transform: translateZ(10px);
@@ -714,10 +794,9 @@ spline-viewer {
   transform: scale(1.3) rotate(15deg);
 }
 
-/* PROJECT POPUP STYLES - ENHANCED AND FIXED */
+/* PROJECT POPUP STYLES */
 .project-popup {
   position: fixed;
-  /* background: rgba(0, 0, 0, 0.95); */
   background: black;
   border: 2px solid white;
   border-radius: 15px;
@@ -786,7 +865,6 @@ spline-viewer {
 }
 
 .tech-tag {
-  /* background: rgba(255, 255, 255, 0.15); */
   color: #ffffff;
   padding: 6px 12px;
   border-radius: 20px;
@@ -844,12 +922,12 @@ spline-viewer {
 .skills-container {
   position: relative;
   width: 100%;
-  height: 500px;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   gap: 60px;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-bottom: 60px;
 }
 
 .skills-row {
@@ -857,14 +935,7 @@ spline-viewer {
   width: 200%;
   animation: infiniteScroll 30s linear infinite;
   gap: 40px;
-}
-
-.skills-row:nth-child(2) {
-  animation: infiniteScrollReverse 25s linear infinite;
-}
-
-.skills-row:nth-child(3) {
-  animation: infiniteScroll 35s linear infinite;
+  min-height: 80px;
 }
 
 /* Horizontal Rocket-shaped Skill Divs */
@@ -910,7 +981,7 @@ spline-viewer {
   font-size: 1.1rem;
 }
 
-/* Animation for infinite scrolling */
+/* Animation keyframes */
 @keyframes infiniteScroll {
   0% {
     transform: translateX(0);
@@ -920,16 +991,7 @@ spline-viewer {
   }
 }
 
-@keyframes infiniteScrollReverse {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-/* Alternative rocket styles for variety */
+/* Alternative rocket styles */
 .skill-rocket.alt {
   background: #ffffff;
   color: #000000;
@@ -939,6 +1001,72 @@ spline-viewer {
 .skill-rocket.alt:hover {
   background: #f5f5f5;
 }
+
+/* ========== DETAILED STATIC SKILLS SECTION ========== */
+.detailed-skills {
+  width: 100%;            /* Full width */
+  margin: 20px 0 0 0;     /* Top margin only, no horizontal auto */
+  padding: 0 20px;        /* Horizontal padding */
+  box-sizing: border-box; /* Include padding in width */
+  text-align: left;       /* Align text left */
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+}
+
+.detailed-skills h3 {
+  border-bottom: 2px solid #000000;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.detailed-skills ul {
+  list-style-type: disc;
+  padding-left: 25px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.detailed-skills li {
+  margin-bottom: 10px;
+}
+
+
+/* ========== DETAILED STATIC SKILLS SECTION ========== */
+.detailed-skills {
+  max-width: 800px;
+  margin: 20px auto 0 auto;
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+  padding: 0 20px;
+  text-align: left; /* Align text from start without inline style */
+}
+
+
+.detailed-skills h3 {
+  border-bottom: 2px solid #000000;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.detailed-skills ul {
+  list-style-type: disc;
+  padding-left: 25px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.detailed-skills li {
+  margin-bottom: 10px;
+}
+
 
 /* 3D Floating Animations */
 @keyframes float3D1 {
@@ -987,6 +1115,341 @@ spline-viewer {
   70% { 
     transform: translateY(-10px) translateX(6px) rotateX(3deg) rotateY(2deg); 
   }
+}
+
+/* ========== GRAVITATIONAL PULL (CONTACT) SECTION ========== */
+.gravitational-pull-section {
+    position: relative;
+    padding: 100px 40px;
+    background: #000000;
+    color: #ffffff;
+    z-index: 10;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Animated star field background */
+.gravitational-pull-section::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: 
+        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,1), transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(2px 2px at 250px 90px, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 300px 20px, rgba(255,255,255,1), transparent);
+    background-repeat: repeat;
+    background-size: 400px 150px;
+    animation: starField 12s linear infinite, starTwinkle 3s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+@keyframes starField {
+    0% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(-15px) translateY(-10px); }
+    50% { transform: translateX(10px) translateY(-15px); }
+    75% { transform: translateX(-10px) translateY(10px); }
+    100% { transform: translateX(0) translateY(0); }
+}
+
+@keyframes starTwinkle {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+.gravitational-pull-section .section-title {
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+    margin-bottom: 80px;
+    font-size: 3rem;
+    white-space: nowrap;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+}
+
+/* Contact container */
+.contact-container {
+    position: relative;
+    z-index: 15;
+    max-width: 1200px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+/* Contact info section */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.contact-intro {
+    font-family: 'Inter', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+.contact-description {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: #ffffff;
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+/* Contact info text */
+.contact-info-text {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.contact-info-item {
+    font-size: 1.2rem;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.contact-info-item span {
+    color: #ffffff;
+    font-weight: 400;
+    margin-right: 10px;
+}
+
+/* Social Media Icons */
+.contact-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    justify-content: flex-start;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: transparent;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    transition: left 0.6s ease;
+    border-radius: 50%;
+}
+
+.contact-link:hover::before {
+    left: 100%;
+}
+
+.contact-link:hover {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+    transform: translateY(-5px) scale(1.1);
+}
+
+.contact-link i {
+    font-size: 2.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Contact form section */
+.contact-form-container {
+    background: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-input,
+.form-textarea {
+    padding: 15px 20px;
+    background: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #ffffff;
+    background: transparent;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: #ffffff;
+    opacity: 0.7;
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-submit {
+    background: #ffffff;
+    color: #000000;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.form-submit:hover {
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    transform: translateY(-3px);
+}
+
+.form-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Success/Error Messages */
+.form-message {
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 600;
+    display: none;
+}
+
+.form-message.success {
+    background: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+}
+
+.form-message.error {
+    background: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+}
+
+/* Floating cosmic elements */
+.cosmic-element {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ffffff;
+    border-radius: 50%;
+    animation: floatCosmic 8s ease-in-out infinite;
+}
+
+.cosmic-element:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.cosmic-element:nth-child(2) {
+    top: 60%;
+    right: 15%;
+    animation-delay: -2s;
+}
+
+.cosmic-element:nth-child(3) {
+    bottom: 30%;
+    left: 20%;
+    animation-delay: -4s;
+}
+
+.cosmic-element:nth-child(4) {
+    top: 40%;
+    right: 30%;
+    animation-delay: -6s;
+}
+
+@keyframes floatCosmic {
+    0%, 100% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0.8;
+    }
+    25% {
+        transform: translateY(-20px) translateX(10px) scale(1.2);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-10px) translateX(-15px) scale(0.8);
+        opacity: 0.6;
+    }
+    75% {
+        transform: translateY(15px) translateX(5px) scale(1.1);
+        opacity: 0.9;
+    }
 }
 
 /* RESPONSIVE DESIGN */
@@ -1188,6 +1651,47 @@ spline-viewer {
     height: 30px;
     margin-right: 10px;
   }
+  
+  .gravitational-pull-section {
+    padding: 80px 20px;
+  }
+  
+  .gravitational-pull-section .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    white-space: normal;
+  }
+  
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    text-align: center;
+  }
+  
+  .contact-intro {
+    font-size: 2.8rem;
+  }
+  
+  .contact-description {
+    font-size: 1.2rem;
+  }
+  
+  .contact-form-container {
+    padding: 30px 20px;
+  }
+  
+  .contact-links {
+    justify-content: center;
+  }
+  
+  .contact-link {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .contact-link i {
+    font-size: 2.2rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1274,426 +1778,43 @@ spline-viewer {
   .skill-rocket .skill-name {
     font-size: 0.9rem;
   }
+  
+  .gravitational-pull-section .section-title {
+    font-size: 2rem;
+  }
+  
+  .contact-intro {
+    font-size: 2.2rem;
+  }
+  
+  .contact-description {
+    font-size: 1.1rem;
+  }
+  
+  .contact-links {
+    gap: 20px;
+  }
+  
+  .contact-link {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .contact-link i {
+    font-size: 1.8rem;
+  }
+  
+  .form-input,
+  .form-textarea {
+    padding: 12px 15px;
+    font-size: 0.95rem;
+  }
+  
+  .form-submit {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
 }
-
-        /* ========== GRAVITATIONAL PULL (CONTACT) SECTION ========== */
-        .gravitational-pull-section {
-            position: relative;
-            padding: 100px 40px;
-            background: #000000;
-            color: #ffffff;
-            z-index: 10;
-            overflow: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Animated star field background */
-        .gravitational-pull-section::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: 
-                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,1), transparent),
-                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(2px 2px at 250px 90px, rgba(255,255,255,0.5), transparent),
-                radial-gradient(1px 1px at 300px 20px, rgba(255,255,255,1), transparent);
-            background-repeat: repeat;
-            background-size: 400px 150px;
-            animation: starField 12s linear infinite, starTwinkle 3s ease-in-out infinite alternate;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.8;
-        }
-
-        @keyframes starField {
-            0% { transform: translateX(0) translateY(0); }
-            25% { transform: translateX(-15px) translateY(-10px); }
-            50% { transform: translateX(10px) translateY(-15px); }
-            75% { transform: translateX(-10px) translateY(10px); }
-            100% { transform: translateX(0) translateY(0); }
-        }
-
-        @keyframes starTwinkle {
-            0% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
-
-        .gravitational-pull-section .section-title {
-            color: #ffffff;
-            border-bottom: 2px solid #ffffff;
-            margin-bottom: 80px;
-            font-size: 3rem;
-            white-space: nowrap;
-            text-align: center;
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-        }
-
-        /* Contact container */
-        .contact-container {
-            position: relative;
-            z-index: 15;
-            max-width: 1200px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        /* Contact info section */
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .contact-intro {
-            font-family: 'Inter', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 30px;
-            color: #ffffff;
-        }
-
-        .contact-description {
-            font-size: 1.4rem;
-            line-height: 1.6;
-            color: #ffffff;
-            margin-bottom: 40px;
-            font-weight: 500;
-        }
-
-        /* Contact info text */
-        .contact-info-text {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .contact-info-item {
-            font-size: 1.2rem;
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .contact-info-item span {
-            color: #ffffff;
-            font-weight: 400;
-            margin-right: 10px;
-        }
-
-        /* Social Media Icons */
-        .contact-links {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            justify-content: flex-start;
-        }
-
-        .contact-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 80px;
-            height: 80px;
-            background: transparent;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            text-decoration: none;
-            color: #ffffff;
-            font-size: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: #ffffff;
-            transition: left 0.6s ease;
-            border-radius: 50%;
-        }
-
-        .contact-link:hover::before {
-            left: 100%;
-        }
-
-        .contact-link:hover {
-            background: #ffffff;
-            color: #000000;
-            border-color: #ffffff;
-            transform: translateY(-5px) scale(1.1);
-        }
-
-        .contact-link i {
-            font-size: 2.5rem;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Contact form section */
-        .contact-form-container {
-            background: transparent;
-            border: 1px solid #ffffff;
-            border-radius: 20px;
-            padding: 40px;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-label {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .form-input,
-        .form-textarea {
-            padding: 15px 20px;
-            background: transparent;
-            border: 1px solid #ffffff;
-            border-radius: 10px;
-            color: #ffffff;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: #ffffff;
-            background: transparent;
-        }
-
-        .form-input::placeholder,
-        .form-textarea::placeholder {
-            color: #ffffff;
-            opacity: 0.7;
-        }
-
-        .form-textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .form-submit {
-            background: #ffffff;
-            color: #000000;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .form-submit:hover {
-            background: #000000;
-            color: #ffffff;
-            border: 2px solid #ffffff;
-            transform: translateY(-3px);
-        }
-
-        .form-submit:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        /* Success/Error Messages */
-        .form-message {
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            text-align: center;
-            font-weight: 600;
-            display: none;
-        }
-
-        .form-message.success {
-            background: transparent;
-            border: 2px solid #ffffff;
-            color: #ffffff;
-        }
-
-        .form-message.error {
-            background: transparent;
-            border: 2px solid #ffffff;
-            color: #ffffff;
-        }
-
-        /* Floating cosmic elements */
-        .cosmic-element {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #ffffff;
-            border-radius: 50%;
-            animation: floatCosmic 8s ease-in-out infinite;
-        }
-
-        .cosmic-element:nth-child(1) {
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .cosmic-element:nth-child(2) {
-            top: 60%;
-            right: 15%;
-            animation-delay: -2s;
-        }
-
-        .cosmic-element:nth-child(3) {
-            bottom: 30%;
-            left: 20%;
-            animation-delay: -4s;
-        }
-
-        .cosmic-element:nth-child(4) {
-            top: 40%;
-            right: 30%;
-            animation-delay: -6s;
-        }
-
-        @keyframes floatCosmic {
-            0%, 100% {
-                transform: translateY(0) translateX(0) scale(1);
-                opacity: 0.8;
-            }
-            25% {
-                transform: translateY(-20px) translateX(10px) scale(1.2);
-                opacity: 1;
-            }
-            50% {
-                transform: translateY(-10px) translateX(-15px) scale(0.8);
-                opacity: 0.6;
-            }
-            75% {
-                transform: translateY(15px) translateX(5px) scale(1.1);
-                opacity: 0.9;
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .gravitational-pull-section {
-                padding: 80px 20px;
-            }
-            
-            .gravitational-pull-section .section-title {
-                font-size: 2.5rem;
-                margin-bottom: 60px;
-                white-space: normal;
-            }
-            
-            .contact-container {
-                grid-template-columns: 1fr;
-                gap: 50px;
-                text-align: center;
-            }
-            
-            .contact-intro {
-                font-size: 2.8rem;
-            }
-            
-            .contact-description {
-                font-size: 1.2rem;
-            }
-            
-            .contact-form-container {
-                padding: 30px 20px;
-            }
-            
-            .contact-links {
-                justify-content: center;
-            }
-            
-            .contact-link {
-                width: 70px;
-                height: 70px;
-            }
-            
-            .contact-link i {
-                font-size: 2.2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .gravitational-pull-section .section-title {
-                font-size: 2rem;
-            }
-            
-            .contact-intro {
-                font-size: 2.2rem;
-            }
-            
-            .contact-description {
-                font-size: 1.1rem;
-            }
-            
-            .contact-links {
-                gap: 20px;
-            }
-            
-            .contact-link {
-                width: 60px;
-                height: 60px;
-            }
-            
-            .contact-link i {
-                font-size: 1.8rem;
-            }
-            
-            .form-input,
-            .form-textarea {
-                padding: 12px 15px;
-                font-size: 0.95rem;
-            }
-            
-            .form-submit {
-                padding: 12px 25px;
-                font-size: 1rem;
-            }
-        } 
-
-
 </style>
 <!-- Replace your current script tag with this -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -1726,12 +1847,18 @@ spline-viewer {
 
 <section id="my-atomic-structure" class="about-section">
   <div class="about-left">
-    <h2 class="main-name">Madhav</h2>
-    <p class="job-title">Full Stack Developer</p>
-    <a href="mailto:madhav@example.com" class="contact-btn">Contact Me</a>
+    <h2 class="main-name scroll-reveal-left">Madhav</h2>
+    <p class="job-title scroll-reveal-left" style="--delay: 0.2s;">Full Stack Developer</p>
+    <a href="mailto:madhav@example.com" class="contact-btn scroll-reveal-left" style="--delay: 0.4s;">Contact Me</a>
+
+    <!-- Background / Education / Field of Study -->
+    <div class="background scroll-reveal-left" style="--delay: 0.6s; margin-top: 40px;">
+      <h4>Background</h4>
+      <p>Final-year Computer Science student at XYZ University. My passion for coding began in high school where I discovered the power of technology to solve real-world problems.</p>
+    </div>
   </div>
 
-  <div class="center-orbit-profile">
+  <div class="center-orbit-profile scroll-reveal-scale" style="--delay: 0.3s;">
     <img src="my-image.jpg" alt="Madhav Dhavala" class="about-photo">
     <div class="orbits">
       <div class="orbit orbit1"></div>
@@ -1740,22 +1867,29 @@ spline-viewer {
   </div>
 
   <div class="about-right">
-    <h3 class="last-name">Dhavala</h3>
-    <p class="about-description">
+    <h3 class="last-name scroll-reveal-right">Dhavala</h3>
+    <p class="about-description scroll-reveal-right" style="--delay: 0.2s;">
       Expert in JavaScript, React, Node.js, and cloud technologies. I love creating user-centric solutions that make a real impact.
     </p>
+
+    <!-- Personality / Passion -->
+    <div class="personality scroll-reveal-right" style="--delay: 0.4s; margin-top: 40px; max-width: 400px;">
+      <h4>Personality & Passion</h4>
+      <p>Passionate about building user-friendly, scalable applications. Outside of coding, I enjoy reading about startups and experimenting with new tech stacks.</p>
+    </div>
   </div>
 </section>
 
+
 <section id="project-nebula" class="project-nebula-section">
-  <h2 class="section-title">Project Nebula</h2>
+  <h2 class="section-title scroll-reveal">Project Nebula</h2>
 
   <div class="projects-grid">
-    <!-- PROJECT 1: Cosmic Blog Platform -->
-    <div class="project-card project1" data-project="cosmic-blog">
-      <img src="https://marketplace.canva.com/EAGqBtXNfT0/2/0/1600w/canva-black-and-white-minimalist-digital-marketing-portfolio-presentation-EWwa2PzdVxQ.jpg" alt="Cosmic Blog Platform Screenshot" class="project-image" />
+    <!-- PROJECT 1: Offline LAN Video Streaming Platform -->
+    <div class="project-card project1 scroll-reveal-scale" data-project="cosmic-blog" style="--delay: 0.1s;">
+      <img src="stream-nexus.png" alt="Offline LAN Video Streaming Platform Screenshot" class="project-image" />
       <div class="project-content">
-        <h3 class="project-title">Cosmic Blog Platform</h3>
+        <h3 class="project-title">Stream Nexus</h3>
         <div class="project-buttons">
           <a href="https://github.com/username/cosmic-blog" target="_blank" class="btn github-btn">
             <i class="fab fa-github"></i> GitHub
@@ -1768,7 +1902,7 @@ spline-viewer {
     </div>
 
     <!-- PROJECT 2: Galactic E-commerce -->
-    <div class="project-card project2" data-project="galactic-ecommerce">
+    <div class="project-card project2 scroll-reveal-scale" data-project="galactic-ecommerce" style="--delay: 0.2s;">
       <img src="https://marketplace.canva.com/EAGqBtXNfT0/2/0/1600w/canva-black-and-white-minimalist-digital-marketing-portfolio-presentation-EWwa2PzdVxQ.jpg" alt="Galactic E-commerce Screenshot" class="project-image" />
       <div class="project-content">
         <h3 class="project-title">Galactic E-commerce</h3>
@@ -1784,7 +1918,7 @@ spline-viewer {
     </div>
 
     <!-- PROJECT 3: Stellar Portfolio -->
-    <div class="project-card project3" data-project="stellar-portfolio">
+    <div class="project-card project3 scroll-reveal-scale" data-project="stellar-portfolio" style="--delay: 0.3s;">
       <img src="https://marketplace.canva.com/EAGqBtXNfT0/2/0/1600w/canva-black-and-white-minimalist-digital-marketing-portfolio-presentation-EWwa2PzdVxQ.jpg" alt="Stellar Portfolio Screenshot" class="project-image" />
       <div class="project-content">
         <h3 class="project-title">Stellar Portfolio</h3>
@@ -1799,11 +1933,11 @@ spline-viewer {
       </div>
     </div>
 
-    <!-- PROJECT 4: Nebula Task Manager -->
-    <div class="project-card project4" data-project="nebula-task">
-      <img src="https://marketplace.canva.com/EAGqBtXNfT0/2/0/1600w/canva-black-and-white-minimalist-digital-marketing-portfolio-presentation-EWwa2PzdVxQ.jpg" alt="Nebula Task Manager Screenshot" class="project-image" />
+    <!-- PROJECT 4: FortiAsset -->
+    <div class="project-card project4 scroll-reveal-scale" data-project="nebula-task" style="--delay: 0.4s;">
+      <img src="assets.png" alt="FortiAsset Screenshot" class="project-image" />
       <div class="project-content">
-        <h3 class="project-title">Nebula Task Manager</h3>
+        <h3 class="project-title">FortiAsset</h3>
         <div class="project-buttons">
           <a href="https://github.com/username/nebula-task" target="_blank" class="btn github-btn">
             <i class="fab fa-github"></i> GitHub
@@ -1815,11 +1949,11 @@ spline-viewer {
       </div>
     </div>
 
-    <!-- PROJECT 5: AI Chatbot -->
-    <div class="project-card project5" data-project="ai-chatbot">
-      <img src="https://marketplace.canva.com/EAGqBtXNfT0/2/0/1600w/canva-black-and-white-minimalist-digital-marketing-portfolio-presentation-EWwa2PzdVxQ.jpg" alt="AI Chatbot Screenshot" class="project-image" />
+    <!-- PROJECT 5: Presetify -->
+    <div class="project-card project5 scroll-reveal-scale" data-project="ai-chatbot" style="--delay: 0.5s;">
+      <img src="presets.png" alt="Presetify Screenshot" class="project-image" />
       <div class="project-content">
-        <h3 class="project-title">AI Chatbot</h3>
+        <h3 class="project-title">Presetify</h3>
         <div class="project-buttons">
           <a href="https://github.com/username/ai-chatbot" target="_blank" class="btn github-btn">
             <i class="fab fa-github"></i> GitHub
@@ -1849,438 +1983,254 @@ spline-viewer {
 
 <!-- ELEMENT MASTERY SECTION -->
 <section id="element-mastery" class="element-mastery-section">
-  <h2 class="section-title">Element Mastery</h2>
+  <h2 class="section-title scroll-reveal">Element Mastery</h2>
   
-  <div class="skills-container">
-    <!-- First Row - Frontend Skills -->
+  <div class="skills-container scroll-reveal" style="--delay: 0.2s;">
+  
+    <!-- First Row - Frontend Skills (infinite scrolling) -->
     <div class="skills-row">
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-html5-plain"></i></div>
-        <div class="skill-name">HTML5</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-css3-plain"></i></div>
-        <div class="skill-name">CSS3</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-javascript-plain"></i></div>
-        <div class="skill-name">JavaScript</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-typescript-plain"></i></div>
-        <div class="skill-name">TypeScript</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-react-original"></i></div>
-        <div class="skill-name">React</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-redux-original"></i></div>
-        <div class="skill-name">Redux</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-vuejs-plain"></i></div>
-        <div class="skill-name">Vue.js</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-angular-plain"></i></div>
-        <div class="skill-name">Angular</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-nextjs-original"></i></div>
-        <div class="skill-name">Next.js</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-sass-original"></i></div>
-        <div class="skill-name">Sass</div>
-      </div>
-      <!-- Duplicate for seamless loop -->
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-html5-plain"></i></div>
-        <div class="skill-name">HTML5</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-css3-plain"></i></div>
-        <div class="skill-name">CSS3</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-javascript-plain"></i></div>
-        <div class="skill-name">JavaScript</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-typescript-plain"></i></div>
-        <div class="skill-name">TypeScript</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-react-original"></i></div>
-        <div class="skill-name">React</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-redux-original"></i></div>
-        <div class="skill-name">Redux</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-vuejs-plain"></i></div>
-        <div class="skill-name">Vue.js</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-angular-plain"></i></div>
-        <div class="skill-name">Angular</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-nextjs-original"></i></div>
-        <div class="skill-name">Next.js</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-sass-original"></i></div>
-        <div class="skill-name">Sass</div>
-      </div>
+      <!-- First set -->
+      <div class="skill-rocket"><div class="skill-icon"><i class="devicon-html5-plain"></i></div><div class="skill-name">HTML5</div></div>
+      <div class="skill-rocket alt"><div class="skill-icon"><i class="devicon-css3-plain"></i></div><div class="skill-name">CSS3</div></div>
+      <div class="skill-rocket"><div class="skill-icon"><i class="devicon-javascript-plain"></i></div><div class="skill-name">JavaScript</div></div>
+      <div class="skill-rocket alt"><div class="skill-icon"><i class="devicon-typescript-plain"></i></div><div class="skill-name">TypeScript</div></div>
+      <div class="skill-rocket"><div class="skill-icon"><i class="devicon-react-original"></i></div><div class="skill-name">React</div></div>
+      
+      <!-- Duplicated set for smooth loop -->
+      <div class="skill-rocket"><div class="skill-icon"><i class="devicon-html5-plain"></i></div><div class="skill-name">HTML5</div></div>
+      <div class="skill-rocket alt"><div class="skill-icon"><i class="devicon-css3-plain"></i></div><div class="skill-name">CSS3</div></div>
+      <div class="skill-rocket"><div class="skill-icon"><i class="devicon-javascript-plain"></i></div><div class="skill-name">JavaScript</div></div>
+      <div class="skill-rocket alt"><div class="skill-icon"><i class="devicon-typescript-plain"></i></div><div class="skill-name">TypeScript</div></div>
+      <div class="skill-rocket"><div class="skill-icon"><i class="devicon-react-original"></i></div><div class="skill-name">React</div></div>
     </div>
-
-    <!-- Second Row - Backend Skills -->
-    <div class="skills-row">
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-nodejs-plain"></i></div>
-        <div class="skill-name">Node.js</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-express-original"></i></div>
-        <div class="skill-name">Express</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-python-plain"></i></div>
-        <div class="skill-name">Python</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-django-plain"></i></div>
-        <div class="skill-name">Django</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-php-plain"></i></div>
-        <div class="skill-name">PHP</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-laravel-original"></i></div>
-        <div class="skill-name">Laravel</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-ruby-plain"></i></div>
-        <div class="skill-name">Ruby</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-rails-plain"></i></div>
-        <div class="skill-name">Rails</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-java-plain"></i></div>
-        <div class="skill-name">Java</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-spring-original"></i></div>
-        <div class="skill-name">Spring</div>
-      </div>
-      <!-- Duplicate for seamless loop -->
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-nodejs-plain"></i></div>
-        <div class="skill-name">Node.js</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-express-original"></i></div>
-        <div class="skill-name">Express</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-python-plain"></i></div>
-        <div class="skill-name">Python</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-django-plain"></i></div>
-        <div class="skill-name">Django</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-php-plain"></i></div>
-        <div class="skill-name">PHP</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-laravel-original"></i></div>
-        <div class="skill-name">Laravel</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-ruby-plain"></i></div>
-        <div class="skill-name">Ruby</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-rails-plain"></i></div>
-        <div class="skill-name">Rails</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-java-plain"></i></div>
-        <div class="skill-name">Java</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-spring-original"></i></div>
-        <div class="skill-name">Spring</div>
-      </div>
+  
+    <!-- Detailed Skills Section (Static), aligned from start -->
+    <div class="detailed-skills" style="text-align: start;">
+      <h3>Tools & Technologies</h3>
+      <ul>
+        <li><strong>Git, GitHub:</strong> Used for version control and collaborative code management across multiple projects.</li>
+        <li><strong>REST APIs, OAuth 2.0 Authentication:</strong> Implemented secure backend APIs and user authentication flows in web applications.</li>
+        <li><strong>Docker, Kubernetes, AWS:</strong> Containerized applications using Docker, deployed and orchestrated with Kubernetes on AWS cloud infrastructure.</li>
+        <li><strong>Google Drive API Integration:</strong> Integrated Google Drive for storing and managing video content in Stream Nexus.</li>
+        <li><strong>Socket.io (Real-time Communication):</strong> Developed real-time chat and live streaming features enabling interactive classroom experience.</li>
+        <li><strong>Electron (Desktop App Framework):</strong> Explored desktop application development for cross-platform deployment with Electron.</li>
+        <li><strong>3D Integration with Spline Viewer:</strong> Incorporated interactive 3D models and visuals within web interfaces to enhance user engagement.</li>
+      </ul>
     </div>
-
-    <!-- Third Row - Database & Tools -->
-    <div class="skills-row">
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-mongodb-plain"></i></div>
-        <div class="skill-name">MongoDB</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-mysql-plain"></i></div>
-        <div class="skill-name">MySQL</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-postgresql-plain"></i></div>
-        <div class="skill-name">PostgreSQL</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-redis-plain"></i></div>
-        <div class="skill-name">Redis</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-git-plain"></i></div>
-        <div class="skill-name">Git</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-docker-plain"></i></div>
-        <div class="skill-name">Docker</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-kubernetes-plain"></i></div>
-        <div class="skill-name">Kubernetes</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-amazonwebservices-original"></i></div>
-        <div class="skill-name">AWS</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-graphql-plain"></i></div>
-        <div class="skill-name">GraphQL</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="fas fa-server"></i></div>
-        <div class="skill-name">REST API</div>
-      </div>
-      <!-- Duplicate for seamless loop -->
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-mongodb-plain"></i></div>
-        <div class="skill-name">MongoDB</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-mysql-plain"></i></div>
-        <div class="skill-name">MySQL</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-postgresql-plain"></i></div>
-        <div class="skill-name">PostgreSQL</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-redis-plain"></i></div>
-        <div class="skill-name">Redis</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-git-plain"></i></div>
-        <div class="skill-name">Git</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-docker-plain"></i></div>
-        <div class="skill-name">Docker</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-kubernetes-plain"></i></div>
-        <div class="skill-name">Kubernetes</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="devicon-amazonwebservices-original"></i></div>
-        <div class="skill-name">AWS</div>
-      </div>
-      <div class="skill-rocket">
-        <div class="skill-icon"><i class="devicon-graphql-plain"></i></div>
-        <div class="skill-name">GraphQL</div>
-      </div>
-      <div class="skill-rocket alt">
-        <div class="skill-icon"><i class="fas fa-server"></i></div>
-        <div class="skill-name">REST API</div>
-      </div>
-    </div>
+  
   </div>
 </section>
 
-    <!-- GRAVITATIONAL PULL SECTION -->
-    <section id="gravitational-pull" class="gravitational-pull-section">
-        <!-- Floating cosmic elements -->
-        <div class="cosmic-element"></div>
-        <div class="cosmic-element"></div>
-        <div class="cosmic-element"></div>
-        <div class="cosmic-element"></div>
-        
-        <h2 class="section-title">Gravitational Pull</h2>
-        
-        <div class="contact-container">
-            <!-- Contact Information -->
-            <div class="contact-info">
-                <h3 class="contact-intro">Let's Create Something Stellar Together</h3>
-                <p class="contact-description">
-                    Ready to launch your next project into orbit? Whether you need a cosmic website, 
-                    stellar mobile app, or want to collaborate on something extraordinary, 
-                    I'm here to help bring your vision to life.
-                </p>
-                
-                <!-- Contact Info Text -->
-                <div class="contact-info-text">
-                    <div class="contact-info-item">
-                        <span>Email:</span> madhavdhavala0@gmail.com
-                    </div>
-                    <div class="contact-info-item">
-                        <span>Phone:</span> +91 98765 43210
-                    </div>
+
+<!-- GRAVITATIONAL PULL SECTION -->
+<section id="gravitational-pull" class="gravitational-pull-section">
+    <!-- Floating cosmic elements -->
+    <div class="cosmic-element"></div>
+    <div class="cosmic-element"></div>
+    <div class="cosmic-element"></div>
+    <div class="cosmic-element"></div>
+    
+    <h2 class="section-title scroll-reveal">Gravitational Pull</h2>
+    
+    <div class="contact-container">
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <h3 class="contact-intro scroll-reveal-left">Let's Create Something Stellar Together</h3>
+            <p class="contact-description scroll-reveal-left" style="--delay: 0.2s;">
+                Ready to launch your next project into orbit? Whether you need a cosmic website, 
+                stellar mobile app, or want to collaborate on something extraordinary, 
+                I'm here to help bring your vision to life.
+            </p>
+            
+            <!-- Contact Info Text -->
+            <div class="contact-info-text">
+                <div class="contact-info-item scroll-reveal-left" style="--delay: 0.3s;">
+                    <span>Email:</span> madhavdhavala0@gmail.com
                 </div>
-                
-                <!-- Social Media Icons -->
-                <div class="contact-links">
-                    <a href="https://linkedin.com/in/madhav-dhavala" target="_blank" class="contact-link">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    
-                    <a href="https://github.com/madhav-dhavala" target="_blank" class="contact-link">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    
-                    <a href="mailto:madhavdhavala0@gmail.com" class="contact-link">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                    
-                    <a href="tel:+919876543210" class="contact-link">
-                        <i class="fas fa-phone"></i>
-                    </a>
+                <div class="contact-info-item scroll-reveal-left" style="--delay: 0.4s;">
+                    <span>Phone:</span> +91 7207127948
                 </div>
             </div>
             
-            <!-- Contact Form -->
-            <div class="contact-form-container">
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <label for="name" class="form-label">Name</label>
-                        <input 
-                            type="text" 
-                            id="name" 
-                            name="name" 
-                            class="form-input" 
-                            placeholder="Your cosmic name"
-                            required
-                        />
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email" class="form-label">Email</label>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            class="form-input" 
-                            placeholder="your.email@galaxy.com"
-                            required
-                        />
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="subject" class="form-label">Subject</label>
-                        <input 
-                            type="text" 
-                            id="subject" 
-                            name="subject" 
-                            class="form-input" 
-                            placeholder="What's your mission?"
-                            required
-                        />
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea 
-                            id="message" 
-                            name="message" 
-                            class="form-textarea" 
-                            placeholder="Tell me about your stellar project idea..."
-                            required
-                        ></textarea>
-                    </div>
-                    
-                    <button type="submit" class="form-submit" id="submit-btn">Launch Message</button>
-                    
-                    <!-- Success/Error Messages -->
-                    <div class="form-message" id="form-message"></div>
-                </form>
+            <!-- Social Media Icons -->
+            <div class="contact-links scroll-reveal-left" style="--delay: 0.5s;">
+                <a href="https://linkedin.com/in/madhav-dhavala" target="_blank" class="contact-link scroll-stagger" style="--delay: 0.1s;">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                
+                <a href="https://github.com/madhav-dhavala" target="_blank" class="contact-link scroll-stagger" style="--delay: 0.2s;">
+                    <i class="fab fa-github"></i>
+                </a>
+                
+                <a href="mailto:madhavdhavala0@gmail.com" class="contact-link scroll-stagger" style="--delay: 0.3s;">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                
+                <a href="tel:+919876543210" class="contact-link scroll-stagger" style="--delay: 0.4s;">
+                    <i class="fas fa-phone"></i>
+                </a>
             </div>
         </div>
-    </section>
+        
+        <!-- Contact Form -->
+        <div class="contact-form-container scroll-reveal-right">
+            <form class="contact-form" id="contact-form">
+                <div class="form-group scroll-reveal" style="--delay: 0.1s;">
+                    <label for="name" class="form-label">Name</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        class="form-input" 
+                        placeholder="Your cosmic name"
+                        required
+                    />
+                </div>
+                
+                <div class="form-group scroll-reveal" style="--delay: 0.2s;">
+                    <label for="email" class="form-label">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-input" 
+                        placeholder="your.email@galaxy.com"
+                        required
+                    />
+                </div>
+                
+                <div class="form-group scroll-reveal" style="--delay: 0.3s;">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input 
+                        type="text" 
+                        id="subject" 
+                        name="subject" 
+                        class="form-input" 
+                        placeholder="What's your mission?"
+                        required
+                    />
+                </div>
+                
+                <div class="form-group scroll-reveal" style="--delay: 0.4s;">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea 
+                        id="message" 
+                        name="message" 
+                        class="form-textarea" 
+                        placeholder="Tell me about your stellar project idea..."
+                        required
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="form-submit scroll-reveal" id="submit-btn" style="--delay: 0.5s;">Launch Message</button>
+                
+                <!-- Success/Error Messages -->
+                <div class="form-message" id="form-message"></div>
+            </form>
+        </div>
+    </div>
+</section>
 
 <script>
-          // Initialize EmailJS with your public key
-        (function() {
-            emailjs.init("Hwl0xGQ7Qz5u2ftlw"); // Replace with your EmailJS public key
-        })();
+// ========== SCROLL ANIMATIONS SYSTEM ==========
+class ScrollAnimations {
+    constructor() {
+        this.elements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale, .scroll-reveal-rotate');
+        this.observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        this.init();
+    }
 
-        // Contact form submission
-        document.getElementById('contact-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const submitBtn = document.getElementById('submit-btn');
-            const formMessage = document.getElementById('form-message');
-            
-            // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Launching...';
-            formMessage.style.display = 'none';
-            
-            // Send email using EmailJS
-            emailjs.sendForm(
-                'service_28l8t94',    // Replace with your EmailJS service ID
-                'template_xqwv1ti',   // Replace with your EmailJS template ID
-                this
-            ).then(function(response) {
-                // Success
-                console.log('SUCCESS!', response.status, response.text);
+    init() {
+        if ('IntersectionObserver' in window) {
+            this.observer = new IntersectionObserver(this.handleIntersect.bind(this), this.observerOptions);
+            this.elements.forEach(element => this.observer.observe(element));
+        } else {
+            // Fallback for browsers without IntersectionObserver
+            this.elements.forEach(element => element.classList.add('revealed'));
+        }
+    }
+
+    handleIntersect(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const delay = entry.target.style.getPropertyValue('--delay') || '0s';
                 
-                formMessage.textContent = 'Message launched successfully!  I\'ll get back to you soon.';
-                formMessage.className = 'form-message success';
-                formMessage.style.display = 'block';
+                setTimeout(() => {
+                    entry.target.classList.add('revealed');
+                }, parseFloat(delay) * 1000);
                 
-                // Reset form
-                document.getElementById('contact-form').reset();
-                
-            }, function(error) {
-                // Error
-                console.log('FAILED...', error);
-                
-                formMessage.textContent = 'Houston, we have a problem! Please try again or email me directly.';
-                formMessage.className = 'form-message error';
-                formMessage.style.display = 'block';
-            }).finally(function() {
-                // Reset button
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Launch Message';
-            });
+                this.observer.unobserve(entry.target);
+            }
         });
+    }
+}
 
-</script>
-<script>
+// Initialize scroll animations when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new ScrollAnimations();
+});
+
+// Initialize EmailJS with your public key
+(function() {
+    emailjs.init("Hwl0xGQ7Qz5u2ftlw"); // Replace with your EmailJS public key
+})();
+
+// Contact form submission
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const submitBtn = document.getElementById('submit-btn');
+    const formMessage = document.getElementById('form-message');
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Launching...';
+    formMessage.style.display = 'none';
+    
+    // Send email using EmailJS
+    emailjs.sendForm(
+        'service_28l8t94',    // Replace with your EmailJS service ID
+        'template_xqwv1ti',   // Replace with your EmailJS template ID
+        this
+    ).then(function(response) {
+        // Success
+        console.log('SUCCESS!', response.status, response.text);
+        
+        formMessage.textContent = 'Message launched successfully! I\'ll get back to you soon.';
+        formMessage.className = 'form-message success';
+        formMessage.style.display = 'block';
+        
+        // Reset form
+        document.getElementById('contact-form').reset();
+        
+    }, function(error) {
+        // Error
+        console.log('FAILED...', error);
+        
+        formMessage.textContent = 'Houston, we have a problem! Please try again or email me directly.';
+        formMessage.className = 'form-message error';
+        formMessage.style.display = 'block';
+    }).finally(function() {
+        // Reset button
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Launch Message';
+    });
+});
+
 // Enhanced Project data for popups
 const projectData = {
   'cosmic-blog': {
-    title: 'Cosmic Blog Platform',
-    description: 'A modern, responsive blog platform with real-time collaboration features and advanced content management system.',
-    techStack: ['React', 'Node.js', 'MongoDB', 'Socket.io', 'Express', 'JWT'],
+    title: 'Offline LAN Video Streaming Platform',
+    description: 'Stream Nexus is an offline LAN-based video calling application that enables seamless, high-quality communication within a local network, designed for classrooms, offices, and collaborative environments without requiring internet connectivity.',
+    techStack: ['Node.js', 'MongoDB', 'Socket.io', 'Express', 'JWT'],
     features: [
-      'Real-time collaborative editing',
-      'Advanced rich text editor with markdown',
-      'SEO optimization tools',
-      'Comment system with moderation',
-      'Analytics dashboard',
-      'User authentication & roles'
+      'Smartboard and chat students are both active participants in the classroom session.',
+      'Cloud storage integration, particularly with Google Drive, for storing recorded videos securely.',
+      'OAuth 2.0 authentication management for secure access.',
+      'Real-time messaging among participants.'
     ]
   },
   'galactic-ecommerce': {
@@ -2299,7 +2249,7 @@ const projectData = {
   'stellar-portfolio': {
     title: 'Stellar Portfolio',
     description: 'Interactive 3D portfolio website showcasing creative projects with immersive animations and smooth user experience.',
-    techStack: ['Three.js', 'React', 'GSAP', 'WebGL', 'CSS3', 'Webpack'],
+    techStack: ['Node.js', 'MongoDB', 'Express', 'JWT'],
     features: [
       '3D interactive elements',
       'Smooth scroll animations',
@@ -2310,29 +2260,28 @@ const projectData = {
     ]
   },
   'nebula-task': {
-    title: 'Nebula Task Manager',
-    description: 'Advanced project management tool with team collaboration, time tracking, and automated workflow management.',
-    techStack: ['Vue.js', 'Express', 'MongoDB', 'WebSockets', 'JWT', 'Chart.js'],
+    title: 'FortiAsset',
+    description: "Tired of not knowing what's connected to your network? This project inventories all your systems, monitors, printers, and other hardware, making IT management simple.",
+    techStack: ['Node.js', 'MongoDB', 'Express', 'JWT'],
     features: [
-      'Team collaboration tools',
-      'Automated workflow triggers',
-      'Time tracking & reporting',
-      'Kanban board interface',
-      'Real-time notifications',
-      'Project analytics'
+      'Centralized Inventory Dashboard',
+      'Hardware Specification Tracking',
+      'User control management',
+      'Peripheral Management',
+      'Search & Filter'
     ]
   },
   'ai-chatbot': {
-    title: 'AI Chatbot',
-    description: 'Intelligent conversational AI with natural language processing and machine learning capabilities for multiple platforms.',
-    techStack: ['Python', 'TensorFlow', 'Flask', 'NLP', 'WebSockets', 'Docker'],
+    title: 'Presetify',
+    description: 'Tired of repetitive setup tasks? The Preset Suite is a meticulously crafted collection designed to automate your workflow and elevate your creative output.',
+    techStack: ['Node.js', 'MongoDB', 'Express', 'JWT'],
     features: [
-      'Natural language understanding',
-      'Context-aware responses',
-      'Multi-language support',
-      'Learning from conversations',
-      'Integration with multiple platforms',
-      'Sentiment analysis'
+      'One-Click Consistency',
+      'Time-Saving Templates',
+      'Customizable Foundation',
+      'Cinematic Color Grading',
+      'Professional Color Profiles',
+      'Cross-Platform Compatibility'
     ]
   }
 };
@@ -2520,6 +2469,40 @@ document.querySelector('.project-nebula-section').addEventListener('mouseleave',
 // Additional safety: Hide popup on page scroll
 window.addEventListener('scroll', () => {
   popup.classList.remove('show');
+});
+
+// Enhanced smooth scrolling with offset for navbar
+// Enhanced smooth scrolling with offset for navbar
+document.querySelectorAll('.nav-link, .cta-button').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        let targetId = link.getAttribute('href').substring(1);
+        
+        // Handle special case for cta button
+        if (link.classList.contains('cta-button')) {
+            targetId = 'my-atomic-structure';
+        }
+        
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+            const offsetTop = targetSection.offsetTop ; // Account for navbar height
+            
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+
+// Parallax effect for spline background
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const splineBg = document.querySelector('.spline-background');
+    if (splineBg) {
+        splineBg.style.transform = `translate(-50%, -50%) translateY(${scrolled * 0.1}px)`;
+    }
 });
 </script>
 </body>
